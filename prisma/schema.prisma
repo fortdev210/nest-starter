@@ -16,8 +16,6 @@ model User {
   first_name        String?
   last_name         String?
   password          String
-  dob               String? // Date of birth MM/DD/YYYY
-  height            Int? // Height in centimeter
   is_email_verified Boolean  @default(false)
   created_at        DateTime @default(now()) @db.Timestamptz(3)
   updated_at        DateTime @updatedAt @db.Timestamptz(3)
@@ -31,7 +29,8 @@ model Plan {
   user        User        @relation(fields: [user_id], references: [id])
   eating_info EatingInfo?
   user_id     String      @db.Uuid
-  HealthInfo  HealthInfo?
+  health_info HealthInfo?
+  goal_info   Goal?
 }
 
 model EatingInfo {
@@ -53,6 +52,27 @@ model HealthInfo {
   supplements_using             String[]
   exercise                      Json
   number_of_glasses_daily_water Int
+}
+
+model Goal {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  plan                Plan     @relation(fields: [plan_id], references: [id])
+  plan_id             String   @unique @db.Uuid
+  gender              Gender
+  dob                 DateTime @db.Time
+  start_date          DateTime @db.Timestamptz(3)
+  upper_arm           Int
+  hips                Int
+  waist               Int
+  thigh               Int
+  height              Int
+  weight              Int
+  highest_weight      Int
+  goal_weight         Int
+  front_photo_url     String   @db.VarChar(64)
+  left_photo_url      String   @db.VarChar(64)
+  non_scale_victories String[]
+  vision_statement    Json
 }
 
 enum HealthRate {
