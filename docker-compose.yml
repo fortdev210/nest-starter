@@ -5,14 +5,12 @@ services:
     container_name: postgres
     restart: always
     environment:
-      - POSTGRES_USER=jeff
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
     ports:
       - '5432:5432'
     volumes:
       - progresDB:/data/postgres
-    env_file:
-      - ./.env
 
 volumes:
   progresDB:

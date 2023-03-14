@@ -22,3 +22,8 @@ model User {
 
   @@map("users")
 }
+
+enum PLAN_TYPE {
+  weight_loss
+  feel_better
+}
