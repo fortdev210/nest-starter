@@ -32,16 +32,7 @@ export class PlansService {
     });
   }
 
-  update(id: string, updatePlanDto: UpdatePlanDto) {
-    return this.prisma.plan.update({
-      where: {
-        id,
-      },
-      data: {
-        ...updatePlanDto,
-      },
-    });
-  }
+  update(id: string, updatePlanDto: UpdatePlanDto) {}
 
   remove(id: string) {
     return this.prisma.plan.delete({

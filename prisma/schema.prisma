@@ -62,7 +62,7 @@ model HealthInfo {
 }
 
 model GoalInfo {
-  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   plan                Plan     @relation(fields: [plan_id], references: [id])
   plan_id             String   @unique @db.Uuid
   gender              Gender
@@ -79,38 +79,37 @@ model GoalInfo {
   front_photo_url     String   @db.VarChar(64)
   left_photo_url      String   @db.VarChar(64)
   non_scale_victories String[]
-  vision_statement    Json
 
   @@map("goal_info")
 }
 
 enum HealthRate {
-  EXCELLENT
-  GOOD
-  FAIR
-  POOR
+  excellent
+  good
+  fair
+  poor
 }
 
 enum PlanType {
-  WEIGHT_LOSS
-  FEEL_BETTER
+  weight_loss
+  feel_better
 }
 
 enum Gender {
-  MALE
-  FEMALE
-  OTHER
+  male
+  female
+  other
 }
 
 enum AllergyFood {
-  DAIRY
-  SHELLFISH
-  GLUTEN
-  BEEF
-  FISH
-  CHICKEN
-  PORK
-  NUTS
-  EGGS
-  SOY
+  dairy
+  shellfish
+  gluten
+  beef
+  fish
+  chicken
+  pork
+  nuts
+  eggs
+  soy
 }
