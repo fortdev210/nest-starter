@@ -16,14 +16,72 @@ model User {
   first_name        String?
   last_name         String?
   password          String
+  dob               String? // Date of birth MM/DD/YYYY
+  height            Int? // Height in centimeter
   is_email_verified Boolean  @default(false)
   created_at        DateTime @default(now()) @db.Timestamptz(3)
   updated_at        DateTime @updatedAt @db.Timestamptz(3)
+  Plan              Plan[]
 
   @@map("users")
 }
 
-enum PLAN_TYPE {
-  weight_loss
-  feel_better
+model Plan {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user        User        @relation(fields: [user_id], references: [id])
+  eating_info EatingInfo?
+  user_id     String      @db.Uuid
+  HealthInfo  HealthInfo?
+}
+
+model EatingInfo {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cooking_skill    String
+  plan_feed_number Int
+  allergy_food     String[]
+  type             String
+  plan             Plan     @relation(fields: [plan_id], references: [id])
+  plan_id          String   @unique @db.Uuid
+}
+
+model HealthInfo {
+  id                            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  plan                          Plan       @relation(fields: [plan_id], references: [id])
+  plan_id                       String     @unique @db.Uuid
+  general_rate                  HealthRate
+  chronic_condition             String[]
+  supplements_using             String[]
+  exercise                      Json
+  number_of_glasses_daily_water Int
+}
+
+enum HealthRate {
+  EXCELLENT
+  GOOD
+  FAIR
+  POOR
+}
+
+enum PlanType {
+  WEIGHT_LOSS
+  FEEL_BETTER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum AllergyFood {
+  DAIRY
+  SHELLFISH
+  GLUTEN
+  BEEF
+  FISH
+  CHICKEN
+  PORK
+  NUTS
+  EGGS
+  SOY
 }
