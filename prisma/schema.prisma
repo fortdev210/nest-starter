@@ -30,7 +30,10 @@ model Plan {
   eating_info EatingInfo?
   user_id     String      @db.Uuid
   health_info HealthInfo?
-  goal_info   Goal?
+  goal_info   GoalInfo?
+  type        PlanType
+
+  @@map("plan")
 }
 
 model EatingInfo {
@@ -41,6 +44,8 @@ model EatingInfo {
   type             String
   plan             Plan     @relation(fields: [plan_id], references: [id])
   plan_id          String   @unique @db.Uuid
+
+  @@map("eating_info")
 }
 
 model HealthInfo {
@@ -52,9 +57,11 @@ model HealthInfo {
   supplements_using             String[]
   exercise                      Json
   number_of_glasses_daily_water Int
+
+  @@map("health_info")
 }
 
-model Goal {
+model GoalInfo {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   plan                Plan     @relation(fields: [plan_id], references: [id])
   plan_id             String   @unique @db.Uuid
@@ -73,6 +80,8 @@ model Goal {
   left_photo_url      String   @db.VarChar(64)
   non_scale_victories String[]
   vision_statement    Json
+
+  @@map("goal_info")
 }
 
 enum HealthRate {
