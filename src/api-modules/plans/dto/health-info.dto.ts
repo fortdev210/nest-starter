@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsString, IsInt, ValidateNested } from 'class-validator';
 
 export class ExerciseMetaDto {
   @IsString()
@@ -33,4 +33,8 @@ export class HealthInfoDto {
   @ValidateNested()
   @Type(() => ExerciseMetaDto)
   exercise: ExerciseMetaDto;
+
+  @ApiProperty()
+  @IsInt()
+  number_of_glasses_daily_water: number;
 }
