@@ -1,5 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsString, IsIn } from 'class-validator';
+import {
+  IsArray,
+  IsNumber,
+  IsString,
+  IsIn,
+  arrayMinSize,
+  ArrayContains,
+  ArrayMinSize,
+  ArrayNotEmpty,
+  IsEnum,
+} from 'class-validator';
 
 export class EatingInfoDto {
   @ApiProperty()
@@ -12,18 +22,17 @@ export class EatingInfoDto {
 
   @ApiProperty()
   @IsArray()
-  @IsString({ each: true })
-  @IsIn([
-    'dairy',
-    'shellfish',
-    'gluten',
-    'beef',
-    'chicken',
-    'pork',
-    'nuts',
-    'eggs',
-    'soy',
-  ])
+  // @IsEnum([
+  //   'dairy',
+  //   'shellfish',
+  //   'gluten',
+  //   'beef',
+  //   'chicken',
+  //   'pork',
+  //   'nuts',
+  //   'eggs',
+  //   'soy',
+  // ])
   allergy_food: string[];
 
   @ApiProperty()

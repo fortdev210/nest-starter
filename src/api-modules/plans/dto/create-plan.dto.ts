@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsIn, IsUUID, ValidateNested } from 'class-validator';
+import { IsIn, IsOptional, IsUUID, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PlanType } from '@prisma/client';
 import { GoalInfoDto } from './goal-info.dto';
@@ -23,10 +23,12 @@ export class CreatePlanDto {
   @ApiProperty()
   @ValidateNested()
   @Type(() => HealthInfoDto)
+  @IsOptional()
   health_info: HealthInfoDto;
 
   @ApiProperty()
   @ValidateNested()
   @Type(() => GoalInfoDto)
+  @IsOptional()
   goal_info: GoalInfoDto;
 }

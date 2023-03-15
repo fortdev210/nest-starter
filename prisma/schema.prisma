@@ -29,10 +29,10 @@ model Plan {
   user User     @relation(fields: [user_id], references: [id])
   type PlanType
 
-  user_id        String @db.Uuid
-  eating_info_id String @unique @db.Uuid
-  health_info_id String @unique @db.Uuid
-  goal_info_id   String @unique @db.Uuid
+  user_id        String  @db.Uuid
+  eating_info_id String? @unique @db.Uuid
+  health_info_id String? @unique @db.Uuid
+  goal_info_id   String? @unique @db.Uuid
 
   goal_info   GoalInfo?   @relation(fields: [goal_info_id], references: [id])
   eating_info EatingInfo? @relation(fields: [eating_info_id], references: [id])

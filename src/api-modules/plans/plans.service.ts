@@ -12,30 +12,37 @@ export class PlansService {
     const { user_id, type, health_info, eating_info, goal_info } =
       createPlanDto;
 
-    const healthInfo = await this.prisma.healthInfo.create({
-      data: {
-        ...health_info,
-      },
-    });
-
     const eatingInfo = await this.prisma.eatingInfo.create({
       data: {
         ...eating_info,
       },
     });
 
-    const goalInfo = await this.prisma.goalInfo.create({
-      data: {
-        ...goal_info,
-      },
-    });
+    let healthInfo = null;
+    let goalInfo = null;
+
+    if (goal_info) {
+      goalInfo = await this.prisma.goalInfo.create({
+        data: {
+          ...goal_info,
+        },
+      });
+    }
+
+    if (health_info) {
+      healthInfo = await this.prisma.healthInfo.create({
+        data: {
+          ...health_info,
+        },
+      });
+    }
 
     const plan = await this.prisma.plan.create({
       data: {
         user_id,
         type,
-        health_info_id: healthInfo.id,
-        goal_info_id: goalInfo.id,
+        health_info_id: healthInfo ? healthInfo.id : null,
+        goal_info_id: goalInfo ? goalInfo.id : null,
         eating_info_id: eatingInfo.id,
       },
     });
