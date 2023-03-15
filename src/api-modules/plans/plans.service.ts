@@ -39,6 +39,10 @@ export class PlansService {
         eating_info_id: eatingInfo.id,
       },
     });
+
+    return {
+      status: 'successfully created',
+    };
   }
 
   findAll() {

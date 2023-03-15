@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsIn, IsOptional, IsUUID, ValidateNested } from 'class-validator';
+import { IsIn, IsUUID, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PlanType } from '@prisma/client';
 import { GoalInfoDto } from './goal-info.dto';

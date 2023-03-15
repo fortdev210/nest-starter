@@ -68,8 +68,8 @@ model GoalInfo {
   id                  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   plan                Plan?
   gender              Gender
-  dob                 DateTime @db.Time
-  start_date          DateTime @db.Timestamptz(3)
+  dob                 String
+  start_date          String
   upper_arm           Int
   hips                Int
   waist               Int
@@ -78,8 +78,8 @@ model GoalInfo {
   weight              Int
   highest_weight      Int
   goal_weight         Int
-  front_photo_url     String   @db.VarChar(64)
-  left_photo_url      String   @db.VarChar(64)
+  front_photo_url     String
+  left_photo_url      String
   non_scale_victories String[]
 
   @@map("goal_info")

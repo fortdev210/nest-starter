@@ -39,7 +39,7 @@ export class HealthInfoDto {
   @ApiProperty()
   @ValidateNested()
   @Type(() => ExerciseMetaDto)
-  exercise: string;
+  exercise: object;
 
   @ApiProperty()
   @IsInt()
