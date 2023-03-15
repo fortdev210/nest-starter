@@ -25,13 +25,18 @@ model User {
 }
 
 model Plan {
-  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user        User        @relation(fields: [user_id], references: [id])
-  eating_info EatingInfo?
-  user_id     String      @db.Uuid
-  health_info HealthInfo?
-  goal_info   GoalInfo?
-  type        PlanType
+  id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user User     @relation(fields: [user_id], references: [id])
+  type PlanType
+
+  user_id        String @db.Uuid
+  eating_info_id String @unique @db.Uuid
+  health_info_id String @unique @db.Uuid
+  goal_info_id   String @unique @db.Uuid
+
+  goal_info   GoalInfo?   @relation(fields: [goal_info_id], references: [id])
+  eating_info EatingInfo? @relation(fields: [eating_info_id], references: [id])
+  health_info HealthInfo? @relation(fields: [health_info_id], references: [id])
 
   @@map("plan")
 }
@@ -42,16 +47,14 @@ model EatingInfo {
   plan_feed_number Int
   allergy_food     String[]
   type             String
-  plan             Plan     @relation(fields: [plan_id], references: [id])
-  plan_id          String   @unique @db.Uuid
+  plan             Plan?
 
   @@map("eating_info")
 }
 
 model HealthInfo {
   id                            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  plan                          Plan       @relation(fields: [plan_id], references: [id])
-  plan_id                       String     @unique @db.Uuid
+  plan                          Plan?
   general_rate                  HealthRate
   chronic_condition             String[]
   supplements_using             String[]
@@ -63,8 +66,7 @@ model HealthInfo {
 
 model GoalInfo {
   id                  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  plan                Plan     @relation(fields: [plan_id], references: [id])
-  plan_id             String   @unique @db.Uuid
+  plan                Plan?
   gender              Gender
   dob                 DateTime @db.Time
   start_date          DateTime @db.Timestamptz(3)

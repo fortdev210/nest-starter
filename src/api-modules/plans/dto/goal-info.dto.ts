@@ -1,10 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNumber, IsString, IsUUID, IsDate } from 'class-validator';
+import { Gender } from '@prisma/client';
 
 export class GoalInfoDto {
   @ApiProperty()
   @IsDate()
   dob: string;
+
+  @ApiProperty()
+  @IsDate()
+  gender: Gender;
 
   @ApiProperty()
   @IsDate()
@@ -29,6 +34,10 @@ export class GoalInfoDto {
   @ApiProperty()
   @IsNumber()
   height: number;
+
+  @ApiProperty()
+  @IsNumber()
+  weight: number;
 
   @ApiProperty()
   @IsNumber()

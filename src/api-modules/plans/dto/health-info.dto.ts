@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsString, IsInt, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsString,
+  IsInt,
+  IsIn,
+  ValidateNested,
+} from 'class-validator';
+import { HealthRate } from '@prisma/client';
 
 export class ExerciseMetaDto {
   @IsString()
@@ -16,8 +23,8 @@ export class ExerciseMetaDto {
 
 export class HealthInfoDto {
   @ApiProperty()
-  @IsString()
-  general_rate: string;
+  @IsIn(['excellent', 'good', 'fair', 'poor'])
+  general_rate: HealthRate;
 
   @ApiProperty()
   @IsArray()
@@ -32,7 +39,7 @@ export class HealthInfoDto {
   @ApiProperty()
   @ValidateNested()
   @Type(() => ExerciseMetaDto)
-  exercise: ExerciseMetaDto;
+  exercise: string;
 
   @ApiProperty()
   @IsInt()
