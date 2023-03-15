@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 
 import { CreatePlanDto } from './dto/create-plan.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
@@ -53,7 +53,9 @@ export class PlansService {
     });
   }
 
-  update(id: string, updatePlanDto: UpdatePlanDto) {}
+  update(id: string, updatePlanDto: UpdatePlanDto) {
+    return 'updated';
+  }
 
   remove(id: string) {
     return this.prisma.plan.delete({
