@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  ValidationError,
-  ValidationPipe,
-} from '@nestjs/common';
+import { BadRequestException, ValidationError, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -36,6 +32,10 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   await app.listen(process.env.PORT || 3000);
 }
