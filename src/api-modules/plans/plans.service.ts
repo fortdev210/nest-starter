@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
 
+import { PrismaService } from '../../prisma/prisma.service';
 import { CreatePlanDto } from './dto/create-plan.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
 
@@ -53,7 +53,9 @@ export class PlansService {
   }
 
   findAll() {
-    return this.prisma.plan.findMany();
+    return this.prisma.plan.findMany({
+      include: { eating_info: true, goal_info: true, health_info: true},
+    });
   }
 
   findOne(id: string) {
