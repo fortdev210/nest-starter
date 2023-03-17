@@ -38,7 +38,15 @@ export class AuthService {
     return user;
   }
 
-  async login(user: User): Promise<{ accessToken: string; user: User }> {
+  async login(
+    userDto: LogInUserDto,
+  ): Promise<{ accessToken: string; user: User }> {
+    const user = await this.validateUser(userDto);
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
     const { secret, expiresIn } = this.configService.get('jwt');
 
     return {
