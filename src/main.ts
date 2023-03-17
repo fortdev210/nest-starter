@@ -11,6 +11,8 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Epicure')
     .setDescription('Epicure Api Description')
@@ -20,12 +22,21 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-doc', app, document);
 
+  const getError = (error: ValidationError): string => {
+    return error.constraints
+      ? Object.values(error.constraints)[0]
+      : error.property + '.' + getError(error.children[0]);
+  };
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        return new BadRequestException(getError(validationErrors[0]));
+      },
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
