@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -13,10 +13,10 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   first_name: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   last_name: string;
 }
